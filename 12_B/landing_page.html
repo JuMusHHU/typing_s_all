@@ -1,0 +1,214 @@
+<!--- Aliens in Action – Typing S Experiment
+
+* Experiment by
+* Julia Muschalik, Dominic Schmitz and Dinah Baer-Henney
+* https://github.com/JuMusHHU/typing_s
+* 2022-21-03 julia.muschalik@hhu.de
+
+* Experiment is based on typing experiments by
+
+* Pinet, S., Zielinski, C., Mathôt, S., Dufau, S., Alario, F. X., & Longcamp, M. (2017). 
+* Measuring sequences of keystrokes with jsPsych: Reliability of response times and interkeystroke intervals. Behavior research methods, 49(3), 1163-1176.
+* https://github.com/ilcb-crex/Online_experiments_jsPsych
+
+* jsPsych documentation: docs.jspsych.org
+* de Leeuw, J. R. (2014). jsPsych: A JavaScript library for creating behavioral 
+* experiments in a Web browser. Behavior research methods, 1-12
+
+Landing page with the link to launch the experiment in full screen 
+The experiment itself is defined in exp.html
+*
+*
+**/-->
+<!DOCTYPE html>  
+<html>   
+	<head>  
+		<meta charset="utf-8" />
+		
+		<title>Aliens in Action</title>
+		
+		<script src="//wurfl.io/wurfl.js"></script>
+
+		<script src="js/jquery.js"></script>
+		
+		<script src="js/jquery.onerror.js"></script>
+		<script>
+		</script>
+		
+		<!-- Add information on bottom section - infotxt is return -->
+		<script src="js/hf_infos.js"></script>
+
+		<!-- Add information on bottom section - infotxt is return -->
+		<script src="js/hf_consent.js"></script>
+		
+		<!-- Open online experiment in a full screen -->
+		<script>
+			function openfullscreen(url) {
+				newwin = window.open("", "", "scrollbars")
+				newwin.moveTo(0, 0)
+				newwin.resizeTo(screen.width, screen.height)
+				newwin.location = url
+			}
+		</script>
+		
+		<!-- Main layout -->
+		<link rel="stylesheet" href="css/hf_home.css" />
+		<link rel="shortcut icon" href="img/layout/bloup_mini.ico">
+		
+		<!-- Functions to customize scroll bars -->
+		<script src="lib/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+		<link href="lib/scrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" />	
+		
+		
+	</head>
+	
+	<body>
+
+		<header>
+		<img class="hlogo" src="img/layout/bloup.png"/>
+			 <div id="catch">
+				<p>Aliens in Action: Online Typing Experiment</p>
+			</div>
+		</header>			
+			
+		<section class="mcol-section">
+			
+			<div class="col"> 
+				<p class="info-title shabox">Why ?</p> 
+				<p>The purpose of this study is to assess typing abilities in younger children. You are part of the control group, so don't be puzzled by the simplicity of the task.
+				</p> 
+			</div>
+		
+			<div class="col"> 
+				<p class="info-title shabox">How ?</p>
+				<p>This experiment will measure your typing speed in different contexts. The data collected is completely <span class="important more_info_disp">anonymous</span>. You can decide to leave the experiment at any point. The data is only collected at the very end of the experiment. For the reliability of our data, we would ask you to <strong>only participate once.</strong>
+				</p>				
+			</div>
+			
+			<div class="col">
+				<p class="info-title shabox">Who are we ?</p> 
+				<p>This study was developed and carried out by members of a research unit at <a target="_blank" href="https://www.spoken-morphology.hhu.de/en/">Heinrich-Heine-University</a>. 
+				</p>
+			</div>
+
+			<div class="cf"></div>
+			
+		</section>
+		
+		
+		</section> 
+		
+		<section class="mcol-section">
+			
+			<div class="col"> 
+				<div id="contact">
+					<p>Any questions ?<br>Curious to see the results ?<br>Contact us !<br> julia.muschalik (at) hhu.de</p>
+				</div> 
+			</div>
+		
+			<div class="col"> 	
+				<div id="start"> 
+					<div id="no-start"></div>
+					<div class="start-ok">
+						<img id="startkey" src="img/layout/start_key.png" title="Start the experiment"/>
+					</div>
+				</div>
+			</div>	
+
+
+			
+				</div>
+			</div>
+
+			<div class="cf"></div>
+			
+		</section>
+
+		<section id="info_legal">
+			<div id="more_info"> <img id="more_info_key" class="more_info_disp" src="img/layout/add_info.png" title="Legal mentions, anonymity..."/></div>
+			
+			<div id="info_container" style="display: none;">
+				<div id="info_div">
+				</div>
+			</div>
+			
+		</section>
+		
+		<section id="consent">			
+			<div id="consent_container" style="display: none;">
+				<div id="consent_div">
+					<div id="consent_text">
+						 <div id="consent_button"> 
+							<a id = "okstartlink" href="#" onclick="openfullscreen('exp.html'); return false;">
+								<img id="okstart" src="img/layout/start_key.png" title="Open the experiment"/>
+							</a> 
+						</div>
+						<div class="more_info_disp">For more information (anonymity, legal notice...), click <span class="important">here</span>.</div>
+					</div>
+
+				</div>	
+
+			</div>
+			
+		</section>
+						
+	</body>
+	
+	
+	<script>
+	
+		// Forbidden Experiment launch if tablet or smartphone
+		// as detect by WURFL => the start key is not display
+		if (typeof WURFL == 'undefined') {
+			var WURFL = {
+				is_mobile: false
+			};
+		}
+		
+		document.documentElement.className += ' ' + (WURFL.is_mobile ? '' : 'no-') + 'mobile';
+		if ( WURFL.is_mobile == true ) { 
+			var pmob = document.createElement('p');
+			pmob.id = 'forbidden-access';
+			document.getElementById('no-start').appendChild(pmob);
+			var txtmob = document.createTextNode("This experiment is only accessible to mechanical (non-touch) keyboard users");
+			pmob.appendChild(txtmob);
+			$('#startkey').css('visibility', 'hidden');
+			$('#startkey').remove();
+		}
+		
+		// Add More information section
+		var infostr = "<h1><span id='title_info'>Information</span><img src='img/layout/close_cross.png' id='crossClose'/></h1>";
+		infostr += "<div id='info_text'>" + infotxt + "</div>";
+	
+		$('#info_div').html(infostr);
+		
+		// Add customized scrollbar
+		$.mCustomScrollbar.defaults.scrollButtons.enable = true; //enable scrolling buttons by default
+		$.mCustomScrollbar.defaults.axis = "yx"; //enable 2 axis scrollbars by default
+		$.mCustomScrollbar.defaults.scrollInertia = 150;
+		$("#info_text").mCustomScrollbar({theme:"dark-thin"});
+		
+		// Display the more_info div when click on it
+		$('.more_info_disp').click(function(){	
+			$("#info_container").fadeIn(500);
+			$("#crossClose").click(function(){$("#info_container").fadeOut(500)});				
+		});
+		
+
+		// Add consent section
+		var constit = "<h1><span id='title_consent'>Introduction</span><img src='img/layout/close_cross.png' id='consentClose'/></h1>";
+		$('#consent_div').prepend(constit);
+
+		$('#consent_text').prepend(consentxt);
+		
+		$("#consent_text").mCustomScrollbar({theme:"dark-thin"});
+		
+		// Display the consent_div div when click on start key
+		$('#startkey').click(function(){	
+			$("#consent_container").fadeIn(500);
+			$("#consentClose").click(function(){$("#consent_container").fadeOut(500)});				
+		});		
+
+	</script>
+
+</html>
